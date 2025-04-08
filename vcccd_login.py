@@ -1,5 +1,10 @@
 import requests
 import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 
 os.environ['NO_PROXY'] = 'captiveportal-login.vcccd.edu'
 os.environ['HTTP_PROXY'] = ''
@@ -7,10 +12,11 @@ os.environ['HTTPS_PROXY'] = ''
 
 login_url = "https://captiveportal-login.vcccd.edu/cgi-bin/login"
 
+
 payload = {
-    "user": "yourusername",           # your username
-    "password": "yourpassword",     # your password
-    "url": "http://vcccd.edu",  # redirect URL after login
+    "user": os.getenv("VCCCD_USERNAME"),
+    "password": os.getenv("VCCCD_PASSWORD"),
+    "url": "http://vcccd.edu",
     "cmd": "authenticate"
 }
 
@@ -28,9 +34,9 @@ try:
         f.write(response.text)
 
     if "Authentication successful" in response.text:
-        print("Login successful!")
+        print(" Login successful!")
     else:
-        print("Login failed or not confirmed.")
+        print(" Login failed or not confirmed.")
 
 except Exception as e:
     print("Error:", e)
