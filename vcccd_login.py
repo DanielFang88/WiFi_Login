@@ -22,15 +22,15 @@ headers = {
 
 try:
     response = requests.post(login_url, data=payload, headers=headers, verify=False)
-    print("✅ Sent login POST. Response code:", response.status_code)
+    print("Sent login POST. Response code:", response.status_code)
 
     with open("login_response_real.html", "w", encoding="utf-8") as f:
         f.write(response.text)
 
     if "Authentication successful" in response.text:
-        print("🎉 Login successful!")
+        print("Login successful!")
     else:
-        print("⚠️ Login failed or not confirmed.")
+        print("Login failed or not confirmed.")
 
 except Exception as e:
-    print("❌ Error:", e)
+    print("Error:", e)
